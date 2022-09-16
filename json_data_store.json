@@ -1,0 +1,28 @@
+{
+    "elements": [
+        {
+            "id": 7,
+            "brand": "LLK",
+            "number": 225,
+            "color": "Red",
+            "year_of_manufacture": 1999,
+            "vehicle": 1999
+        },
+        {
+            "id": 8,
+            "brand": "LLK",
+            "number": 225,
+            "color": "Red",
+            "year_of_manufacture": 1999,
+            "vehicle": 1999
+        },
+        {
+            "id": 10,
+            "brand": "Kali",
+            "number": 225,
+            "color": "Red",
+            "year_of_manufacture": 1999,
+            "vehicle": 1999
+        }
+    ]
+}
