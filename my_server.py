@@ -13,6 +13,7 @@ from datetime import datetime
 from communication_helper import CommunicationHelper
 from constants import HOST, PORT
 from json_data_store import JsonDataStore
+from sqlite_data_store import SqliteDataStore
 
 
 class Server:
@@ -193,11 +194,13 @@ class Server:
                     f"Nickname changed to {client.nickname}\n".encode('utf8'))
                 return
         elif client_message.startswith("/do"):
-            if self.__busy:
+            while self.__busy:
                 client.writer.write(
-                    f"Please, wait till server will be free...\n".encode('utf8'))
-                return
-            else:
+                    f"Please, wait till server will be free...".encode('utf8'))
+                await asyncio.sleep(1)
+            if not self.__busy:
+                client.writer.write(
+                    f"Started request processing!".encode('utf8'))
                 self.__busy = True
                 await asyncio.sleep(15)
                 client_message = client_message[client_message.find(' ') + 1:]
@@ -257,8 +260,8 @@ class Server:
 
 if __name__ == '__main__':
     auto_inspection = Autoinspection(
-        data_sources_credits=[constants.json_data_source_credits],
-        data_sources_classes=[JsonDataStore]
+        data_sources_credits=[constants.json_data_source_credits, constants.sqlite_data_store_credits],
+        data_sources_classes=[JsonDataStore, SqliteDataStore]
     )
     if len(sys.argv) < 3:
         loop = asyncio.get_event_loop()

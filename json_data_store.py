@@ -1,5 +1,4 @@
 import json
-import time
 from typing import Union
 
 from base_data_store import BaseDataStore
@@ -18,7 +17,7 @@ class JsonDataStore(BaseDataStore):
             self.__file = open(self._data_store_credits['path'], mode="r+")
             self.__connected = True
             return True
-        except Exception as e:
+        except Exception:
             return False
 
     def __get_data_dict(self) -> Union[dict, None]:
