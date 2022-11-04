@@ -2,35 +2,11 @@
     "elements": [
         {
             "id": 1,
-            "brand": "Kali",
-            "number": "180",
-            "color": "Red",
-            "year_of_manufacture": 1999,
-            "vehicle": 1999
-        },
-        {
-            "id": 2,
-            "brand": "Kali",
-            "number": "180",
-            "color": "Red",
-            "year_of_manufacture": 1999,
-            "vehicle": 1999
-        },
-        {
-            "id": 4,
             "brand": "Loki",
             "number": "10",
             "color": "Blue",
             "year_of_manufacture": 2022,
             "vehicle": 2022
-        },
-        {
-            "id": 5,
-            "brand": "Kali",
-            "number": "180",
-            "color": "Red",
-            "year_of_manufacture": 1999,
-            "vehicle": 1999
         }
     ]
 }

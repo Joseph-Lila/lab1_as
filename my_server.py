@@ -3,6 +3,7 @@ import sys
 import logging
 import pathlib
 import os
+import threading
 import time
 
 import constants
@@ -35,8 +36,7 @@ class Server:
         self.__logger: logging.Logger = self.initialize_logger()
         self.__clients: dict[asyncio.Task, Client] = {}
         self.__auto_inspection: Autoinspection = auto_inspection
-        self.__busy = False
-
+        self.__lock = threading.Lock()
         self.logger.info(f"Server Initialized with {self.ip}:{self.port}")
 
     @property
@@ -194,20 +194,15 @@ class Server:
                     f"Nickname changed to {client.nickname}\n".encode('utf8'))
                 return
         elif client_message.startswith("/do"):
-            while self.__busy:
-                client.writer.write(
-                    f"Please, wait till server will be free...".encode('utf8'))
-                await asyncio.sleep(1)
-            if not self.__busy:
+            with self.__lock:
                 client.writer.write(
                     f"Started request processing!".encode('utf8'))
-                self.__busy = True
-                await asyncio.sleep(15)
+                for i in range(15):
+                    time.sleep(1)
                 client_message = client_message[client_message.find(' ') + 1:]
                 command = client_message[:client_message.find(' ')]
                 data = client_message[client_message.find(' ') + 1:]
                 ans = self.complete_action(command, data)
-                self.__busy = False
                 if ans:
                     client.writer.write(
                         f"Here is a result:\n {ans}\n".encode('utf8'))

@@ -80,8 +80,14 @@ class Client:
         Accepts and forwards user input to the connected server.
         '''
         client_message: str = None
+        is_action = False
         while client_message != 'quit':
-            client_message = await ainput("")
+            if not is_action:
+                client_message = await ainput("")
+            else:
+                client_message = await ainput("Please, wait till the server will be free...\n")
+            if client_message in ['/do create', '/do delete', '/do edit', '/do get_all', '/do get_by_id']:
+                is_action = True
             if client_message.startswith("/do"):
                 client_message = CommunicationHelper.append_data_to_command(client_message)
             self.writer.write(client_message.encode('utf8'))

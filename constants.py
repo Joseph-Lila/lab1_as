@@ -1,8 +1,8 @@
 HOST = "localhost"
-PORT = 6677
+PORT = 6678
 json_data_source_credits = {
-    "path": "/home/lila/University/distributed_processing/lab1/json_data_store.json"
+    "path": "/home/loki/PycharmProjects/lab1_as_new/json_data_store.json"
 }
 sqlite_data_store_credits = {
-    "path": "/home/lila/University/distributed_processing/lab1/automobiles.db"
+    "path": "/home/loki/PycharmProjects/lab1_as_new/sqlite_db.db"
 }
